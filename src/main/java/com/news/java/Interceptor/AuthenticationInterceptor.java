@@ -1,11 +1,9 @@
 package com.news.java.Interceptor;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.news.java.Service.UserService;
+import com.news.java.Util.JwtUtil;
 import com.news.java.common.api.PassToken;
 import com.news.java.common.api.UserLoginToken;
 import com.news.java.dao.entity.UserLogin;
@@ -24,20 +22,23 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     UserService userService;
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        // 从 http 请求头中取出 token
+        String token = httpServletRequest.getHeader("token");
         // 如果不是映射到方法直接通过
-        if(!(object instanceof HandlerMethod)){
+        if (!(object instanceof HandlerMethod)) {
             return true;
         }
-        HandlerMethod handlerMethod=(HandlerMethod)object;
-        Method method=handlerMethod.getMethod();
-        //检查是否有passtoken注释，有则跳过认证
+
+        HandlerMethod handlerMethod = (HandlerMethod) object;
+        Method method = handlerMethod.getMethod();
+        //检查是否有PassToken注释，有则跳过认证
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
             if (passToken.required()) {
                 return true;
             }
         }
+
         //检查有没有需要用户权限的注解
         if (method.isAnnotationPresent(UserLoginToken.class)) {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
@@ -47,22 +48,19 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     throw new RuntimeException("无token，请重新登录");
                 }
                 // 获取 token 中的 user id
-                String userId;
+                Long uId;
                 try {
-                    userId = JWT.decode(token).getAudience().get(0);
+                    uId = JWT.decode(token).getClaim("uId").asLong();
                 } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
+                    throw new RuntimeException("访问异常！");
                 }
-                UserLogin userLogin = userService.findUserById(userId);
-                if (userLogin == null) {
+                UserLogin user = userService.findUserByUId(uId);
+                if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
-                // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userLogin.getPassword())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
+                Boolean verify = JwtUtil.isVerify(token, user);
+                if (!verify) {
+                    throw new RuntimeException("非法访问！");
                 }
                 return true;
             }

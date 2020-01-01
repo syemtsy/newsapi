@@ -20,7 +20,7 @@ public class UserController {
     private CommonResult<String> login(@RequestParam String username,@RequestParam String password){
         if(userService.login(username,password))
         {
-            return CommonResult.success(userService.getToken(userService.findUserById(username)),"登录成功");
+            return CommonResult.success(userService.getToken(userService.findUserByUsername(username)),"登录成功");
         }
         return CommonResult.success("登录失败");
     }

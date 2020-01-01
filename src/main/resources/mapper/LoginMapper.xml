@@ -17,4 +17,8 @@
         WHERE username=#{username}
         and password=#{password}
     </select>
+    <select id="findUserLoginByUid" resultType="com.news.java.dao.entity.UserLogin">
+        SELECT * FROM User_Login
+         WHERE u_id=#{userId}
+    </select>
 </mapper>
