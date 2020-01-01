@@ -9,4 +9,8 @@ import java.util.List;
 public interface LoginMapper {
     List<UserLogin> findAll();
     void Save(UserLogin userLogin);
+
+    UserLogin findUserLoginByusername(String username);
+
+    UserLogin findUserLoginByusernameAndPassword(String username, String password);
 }

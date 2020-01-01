@@ -2,6 +2,9 @@ package com.news.java.dao.entity;
 
 
 import java.io.Serializable;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,5 +46,6 @@ public class UserLogin  implements Serializable {
 	 */
 
 	private String password;
+
 
 }

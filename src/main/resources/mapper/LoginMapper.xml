@@ -8,4 +8,13 @@
     <select id="findAll" resultType="com.news.java.dao.entity.UserLogin">
         select  * from User_Login
     </select>
+    <select id="findUserLoginByusername" resultType="com.news.java.dao.entity.UserLogin">
+        select * from User_Login
+        WHERE username=#{username}
+    </select>
+    <select id="findUserLoginByusernameAndPassword" resultType="com.news.java.dao.entity.UserLogin">
+        select * from User_Login
+        WHERE username=#{username}
+        and password=#{password}
+    </select>
 </mapper>
