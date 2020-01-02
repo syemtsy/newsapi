@@ -15,4 +15,6 @@ public interface LoginMapper {
     UserLogin findUserLoginByusernameAndPassword(String username, String password);
 
     UserLogin findUserLoginByUid(Long userId);
+
+    Integer updateByUId(Long id);
 }

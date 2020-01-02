@@ -10,4 +10,6 @@ public interface UserService {
     UserLogin findUserByUId(Long uId);
 
     UserLogin findUserByUsername(String username);
+
+    boolean register(UserLogin userLogin);
 }

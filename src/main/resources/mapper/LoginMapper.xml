@@ -3,8 +3,14 @@
 <mapper namespace="com.news.java.dao.mapper.LoginMapper">
     <insert id="Save">
         insert into User_Login(u_id, username, password)
-        values (#{uId},#{username},#{password})
+        values (0,#{username},#{password})
     </insert>
+    <update id="updateByUId">
+        update User_Login
+        SET u_id=#{id}
+        Where id=#{id}
+
+    </update>
     <select id="findAll" resultType="com.news.java.dao.entity.UserLogin">
         select  * from User_Login
     </select>

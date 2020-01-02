@@ -33,6 +33,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean register(UserLogin userLogin) {
+        loginMapper.Save(userLogin);
+        UserLogin userLogin1=loginMapper.findUserLoginByusername(userLogin.getUsername());
+       Integer row= loginMapper.updateByUId(userLogin1.getId());
+       if(row==1){
+           return true;
+       }
+       return false;
+    }
+
+    @Override
     public boolean login(String username, String password) {
        UserLogin userLogin= loginMapper.findUserLoginByusernameAndPassword(username,password);
        if(userLogin!=null){
