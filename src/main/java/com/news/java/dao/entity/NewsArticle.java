@@ -26,7 +26,12 @@ public class NewsArticle  implements Serializable {
 	/**
 	 * 新闻标识
 	 */
-	private Long aid;
+	private String aid;
+
+	/**
+	 * 新闻标题
+	 */
+	private String title;
 
 	/**
 	 * 新闻内容
@@ -36,8 +41,21 @@ public class NewsArticle  implements Serializable {
 	/**
 	 * 所属分类
 	 */
-	private String navigation;
+	private String channelId;
 
-	private Date creatteime;
+	/**
+	 * 日期
+	 */
+	private Date pubDate;
+
+	/**
+	 * 来源
+	 */
+	private String source;
+
+	/**
+	 * 图片
+	 */
+	private String imageurls;
 
 }

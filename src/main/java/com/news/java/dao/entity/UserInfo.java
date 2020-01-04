@@ -1,6 +1,8 @@
 package com.news.java.dao.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,5 +41,10 @@ public class UserInfo  implements Serializable {
 	 * 状态
 	 */
 	private Long status;
+
+	/**
+	 * 注册时间
+	 */
+	private Date registerTime;
 
 }

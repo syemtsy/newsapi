@@ -12,4 +12,6 @@ public interface UserService {
     UserLogin findUserByUsername(String username);
 
     boolean register(UserLogin userLogin);
+
+    Boolean initUserInfo(UserLogin userLogin);
 }

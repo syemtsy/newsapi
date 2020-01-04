@@ -2,6 +2,8 @@ package com.news.java.dao.entity;
 
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -49,16 +51,16 @@ public class NewsComment  implements Serializable {
 	/**
 	 * 所属文章标识
 	 */
-	private Long aid;
+	private String aid;
 
 	/**
 	 * 评论内容
 	 */
-	private Long content;
+	private String content;
 
 	/**
 	 * 评论时间
 	 */
-	private Long createtime;
+	private Date createtime;
 
 }

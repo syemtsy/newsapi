@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface LoginMapper {
     List<UserLogin> findAll();
-    void Save(UserLogin userLogin);
+    Integer save(UserLogin userLogin);
 
     UserLogin findUserLoginByusername(String username);
 

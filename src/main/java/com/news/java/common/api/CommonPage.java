@@ -17,7 +17,7 @@ public class CommonPage<T> {
     /**
      * 将PageHelper分页后的list转为分页信息
      */
-    private static <T> CommonPage<T> restPage(List<T> list){
+    public static <T> CommonPage<T> restPage(List<T> list){
         CommonPage<T> result=new CommonPage<T>();
         PageInfo<T> pageInfo=new PageInfo<T>(list);
         result.setTotalPage(pageInfo.getPages());
